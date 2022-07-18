@@ -1,5 +1,7 @@
 package common;
 
+import org.springframework.beans.TypeMismatchException;
+import org.springframework.dao.TypeMismatchDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,9 +19,9 @@ public class CommonExceptionHandler {
 		return "errorPage/_404";
 	}
 	
-	//@ExceptionHandler(Exception.class)
-	//@ResponseStatus(code= HttpStatus.BAD_REQUEST)
-	public String badRequestHandle() {
+	@ExceptionHandler(TypeMismatchDataAccessException.class)
+	@ResponseStatus(code= HttpStatus.BAD_REQUEST)
+	public String badRequestHandle(TypeMismatchException exception) {
 		return "errorPage/_400";
 	}
 }
